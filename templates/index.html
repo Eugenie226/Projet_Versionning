@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML App - Upload CSV</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+    
+</head>
+<body>
+    <h1>Uploader un fichier CSV</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".csv" required>
+        <button type="submit">Uploader</button>
+    </form>
+
+    {% if filename %}
+        <h2>Fichier uploadé : {{ filename }}</h2>
+        <h3>Aperçu des données :</h3>
+        {{ tables[0]|safe }}
+
+        <h3>Choisissez un modèle de Machine Learning :</h3>
+        <form action="/train" method="post">
+            <input type="hidden" name="filename" value="{{ filename }}">
+            <label>
+                <input type="radio" name="model" value="linear_regression" required> Régression Linéaire
+            </label><br>
+            <label>
+                <input type="radio" name="model" value="svm"> SVM
+            </label><br>
+            <label>
+                <input type="radio" name="model" value="random_forest"> Random Forest
+            </label><br>
+            <button type="submit">Entraîner le modèle</button>
+        </form>
+    {% endif %}
+
+
+    {% if filename %}
+        <h2>Fichier uploadé : {{ filename }}</h2>
+        <h3>Aperçu des données :</h3>
+        {{ tables[0]|safe }}
+    {% endif %}
+</body>
+</html>
