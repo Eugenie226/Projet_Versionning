@@ -1,0 +1,12 @@
+# Fichiers de logs et caches
+*.log
+__pycache__/
+
+# Fichiers CSV & datasets
+uploads/*.csv
+
+# Modèles DVC
+models/*.pkl
+
+# Dossiers spécifiques à DVC
+.dvc/
