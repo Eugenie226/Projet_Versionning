@@ -1,49 +1,98 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ML App - Upload CSV</title>
-    <style>
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid black; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-    </style>
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ML App - Upload CSV</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2, h3 {
+      color: #333;
+    }
+    form {
+      margin-bottom: 20px;
+    }
+    .btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+    input[type="file"] {
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #dee2e6;
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #e9ecef;
+    }
+    .radio-group {
+      margin-bottom: 10px;
+    }
+    .radio-group label {
+      margin-right: 20px;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
     <h1>Uploader un fichier CSV</h1>
     <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".csv" required>
-        <button type="submit">Uploader</button>
+      <input type="file" name="file" accept=".csv" required>
+      <button type="submit" class="btn">Uploader</button>
     </form>
-
+    
     {% if filename %}
-        <h2>Fichier uploadé : {{ filename }}</h2>
-        <h3>Aperçu des données :</h3>
-        {{ tables[0]|safe }}
+    <h2>Fichier uploadé : {{ filename }}</h2>
+    <h3>Aperçu des données :</h3>
+    {{ tables[0]|safe }}
 
-        <h3>Choisissez un modèle de Machine Learning :</h3>
-        <form action="/train" method="post">
-            <input type="hidden" name="filename" value="{{ filename }}">
-            <label>
-                <input type="radio" name="model" value="linear_regression" required> Régression Linéaire
-            </label><br>
-            <label>
-                <input type="radio" name="model" value="svm"> SVM
-            </label><br>
-            <label>
-                <input type="radio" name="model" value="random_forest"> Random Forest
-            </label><br>
-            <button type="submit">Entraîner le modèle</button>
-        </form>
+    <h3>Choisissez un modèle de Machine Learning :</h3>
+    <form action="/train" method="post">
+      <input type="hidden" name="filename" value="{{ filename }}">
+      <div class="radio-group">
+        <label>
+          <input type="radio" name="model" value="linear_regression" required> Régression Linéaire
+        </label>
+        <label>
+          <input type="radio" name="model" value="svm"> SVM
+        </label>
+        <label>
+          <input type="radio" name="model" value="random_forest"> Random Forest
+        </label>
+      </div>
+      <button type="submit" class="btn">Entraîner le modèle</button>
+    </form>
     {% endif %}
-
-
-    {% if filename %}
-        <h2>Fichier uploadé : {{ filename }}</h2>
-        <h3>Aperçu des données :</h3>
-        {{ tables[0]|safe }}
-    {% endif %}
+  </div>
 </body>
 </html>
